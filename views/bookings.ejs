@@ -1,0 +1,21 @@
+<%- include('partials/broilerup') %>
+<h1 class="text-3xl text-center font-bold to-blue-700 p-5">Your Booking Requests</h1>
+<% for( let book of books ) { %>
+    <div class="m-3 p-3 rounded-3xl border-[3px] border-blue-700">
+        <h1 class="text-xl text-center font-bold p-5">Booking Request ID : <%= book._id %></h1><hr class="h-2 bg-blue-600">
+        <div class="grid grid-cols-2 grid-flow-row gap-4 p-3">
+            <span class="p-2 text-lg">Item</span>
+            <span class="p-2 text-lg"><a href="/products/view<%= book.Item._id %>" class="font-bold hover:text-red-800"><%= book.Item.Name %></a></span>
+            <% for( let att of [['Book From',book.Bookfrom],['Book Till',book.Bookto],['Status',book.Status],['Final Amount',book.Finalamt||'Pending']] ) { %>
+                <span class="p-2 text-lg"><%= att[0] %></span>
+                <span class="p-2 text-lg"><%= att[1] %></span>
+            <% } %>
+            <% if (book.Message) { %>
+                <span class="p-2 text-lg">Message from Owner</span>
+                <span class="p-2 text-lg text-gray-700"><%= book.Message %></span>
+            <% } %>
+        </div>
+    </div>
+<% } %>
+
+<%- include('partials/broilerdn') %>

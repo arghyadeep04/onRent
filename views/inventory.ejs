@@ -1,0 +1,37 @@
+<%- include('partials/broilerup') %>
+
+<h1 class="text-3xl font-bold text-center text-blue-800 p-2 m-3">Your Inventory</h1>
+<div class="p-5 flex justify-around">
+  <% if (products.length!=0) { %>
+   
+    <table class="table-auto">
+      <thead>
+        <tr class="text-2xl text-blue-900 border-[1px] border-black bg-orange-500">
+          <th class="w-min-[150px]">ProductID</th>
+            <th class="w-min-[150px]">Name</th>
+            <th class="w-min-[150px]">View</th>
+            <th class="w-min-[150px]">Edit</th>
+            <th class="w-min-[150px]">Booking Requests</th>
+            <th class="w-min-[150px]">Questions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for( let product of products ) { %>
+                
+            <tr class="border-[1px] border-blue-500 text-lg bg-orange-200">
+              <td class="px-[4vw]"><%= product._id %></td>
+              <td class="px-[4vw]"><%= product.Name %></td>
+                    <td class="px-[4vw]"><a href="/products/view<%= product._id %>" class="text-blue-600 underline">View</a></td>
+                    <td class="px-[4vw]"><a href="/products/edit<%= product._id %>" class="text-blue-600 underline">Edit</a></td>
+                    <td class="px-[4vw]"><a href="/bookings/reqfor<%= product._id %>" class="text-blue-600 underline">View Requests</a></td>
+                    <td class="px-[4vw]"><a href="/questions/queson<%= product._id %>" class="text-blue-600 underline">View Questions</a></td>
+                    
+                </tr>
+                <% } %>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
+    <a href="/products/addprodform"><button class="rounded-3xl bg-blue-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-blue-800 m-5 text-white">Add your product</button></a><br>
+
+<%- include('partials/broilerdn') %>

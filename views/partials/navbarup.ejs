@@ -1,0 +1,79 @@
+    <!-- navbar -->
+    <nav class="justify-between bg-slate-800 md:hidden h-14">
+        <div class="flex justify-between px-4 pt-4">
+            <div class="text-red-100 text-2xl m-0 h-8">OnRent</div>
+            <button
+                class="w-16 border-6 border-red-100 h-8 -m-0 rounded-2xl text-white px-4 bg-yellow-100 hover:bg-red-200 active:bg-red-600"
+                id="ham">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png"
+                    alt="" class="h-8" />
+            </button>
+        </div>
+        
+    </nav>
+    <a href="/products/index">
+        <div class="options p-5 bg-slate-700 text-yellow-300 mt-0 h-12 pl-16 cursor-pointer hidden z-5 hover:font-bold">
+            Home
+        </div>
+    </a>
+    <a href="/">
+        <div class="options py-3 px-5 bg-slate-700 text-yellow-300 m-0 h-10 pl-16 cursor-pointer hidden z-5 hover:font-bold">
+            About
+        </div>
+    </a>
+    <a href="/">
+        <div class="options py-3 px-5 bg-slate-700 text-yellow-300 m-0 h-10 pl-16 cursor-pointer hidden z-5 hover:font-bold">
+            Contact
+        </div>
+    </a>
+    <% if (!logdin) { %>
+        <a href="/users/loginform">
+            <div class="options py-3 px-5 bg-slate-700 m-0 h-10 pl-16 cursor-pointer hidden text-red-400 z-5 hover:font-bold">
+                Login
+            </div></a>
+    <% } else { %>
+ 
+
+        <a href="/users/logout">
+            <div class="options py-3 px-5 bg-slate-700 m-0 h-10 pl-16 cursor-pointer hidden text-red-400 z-5 hover:font-bold">
+                LogOut
+            </div>
+    </a>
+
+    <% }  %>
+     
+    <a href="/users/registerform">
+        <div class="options py-3 px-5 bg-slate-700 m-0 h-12 pl-16 cursor-pointer hidden text-red-400 z-5 hover:font-bold">
+            Signup
+        </div>
+    </a>
+    <nav class="md:flex bg-slate-800 justify-between hidden md:visible ">
+        <span class="text-red-100 text-2xl m-0 h-8 p-3">OnRent</span>
+        <ul class="flex justify-between">
+            <a href="/products/index"><li class="text-red-200 mx-5 my-4 hover:font-bold cursor-pointer">
+                Home
+            </li></a>
+            <a href=""><li class="text-red-200 mx-5 my-4 hover:font-bold cursor-pointer">
+                About
+            </li></a>
+            <a href=""><li class="text-red-200 mx-5 my-4 hover:font-bold cursor-pointer">
+                Contact
+            </li></a>
+            <a href=""><li class="text-red-200 mx-5 my-4 hover:font-bold cursor-pointer">|</li></a>
+            <a href="/users/registerform"><li class="text-yellow-300 mx-5 my-4 hover:font-bold cursor-pointer">
+                Sign Up
+            </li></a>
+            <% if (!logdin) { %>
+                <a href="/users/loginform"><li class="text-yellow-300 mx-5 my-4 hover:font-bold cursor-pointer">
+                    Log In
+                </li></a>
+            <% } else { %>
+             
+            <a href="/users/logout"><li class="text-yellow-300 mx-5 my-4 hover:font-bold cursor-pointer">
+                Log Out
+            </li></a>
+            <% } %>
+        </ul>
+    </nav>
+    <!-- navbar -->
+    <div class="z-0 relative top-0 p-9" id="content">

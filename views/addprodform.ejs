@@ -1,0 +1,71 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1 style="text-align: center;" class="m-2 p-2">Add your Product</h1>
+    <form method="post" action="/products/addprod" novalidate  class="m-3 p-3 needs-validation" enctype="multipart/form-data">
+        <div class="mb-5">
+          <label for="Name" class="form-label">Name of Your Product</label>
+          <input type="text" class="form-control" id="Name" aria-describedby="emailHelp" name="product[Name]" required>
+          <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div><hr>
+        <div class="mb-5">
+          <label for="Price" class="form-label">Rent</label>
+          <input type="number" class="form-control" id="Price" name="product[Price]">
+          <select class="form-select" aria-label="Default select example" name="product[Basis]" required>
+            <option selected>Basis of charging</option>
+            <option value="Hour">Per Hour</option>
+            <option value="Day">Per Day</option>
+            <option value="Week">Per Week</option>
+            <option value="Month">Per Month</option>
+            <option value="Year">Per Year</option>
+          </select>
+        </div><hr>
+        <div class="mb-5">
+            <label for="pickup" class="form-label">Pickup point for your Product</label>
+            <input type="text" class="form-control" id="pickup" aria-describedby="emailHelp" name="product[Place]" required>
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+          </div><hr>
+          <div class="mb-5">
+            <label for="Images" class="form-label">Images of Product</label>
+            <input type="file" class="form-control" id="Images" name='Images' required multiple>
+             <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>  -->
+          </div><hr>
+          <div class="mb-5">
+            <label for="Image" class="form-label">Thumbnail Product</label>
+            <input type="file" class="form-control" id="Image" name='Thumbnail' required >
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+          </div><hr>
+          <div class="mb-5">
+            <label for="Desc" class="form-label">Description of Your Product</label>
+            <textarea class="form-control" id="Desc" name="product[Desc]" required style="white-space: pre-wrap;"></textarea>
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+          </div><hr>
+          <div class="mb-5">
+            <label for="Catagory" class="form-label">Catagory of your Product</label>
+            <!-- <input type="password" class="form-control" id="Price" name="product[Price]"> -->
+            <select class="form-select" aria-label="Default select example" name="product[Catagory]" required id="Catagory">
+              <option selected>catagory</option>
+             <% for( let cat of catagories ) { %>
+             
+              <option value="<%= cat %>"><%= cat %></option>
+             <% } %>
+             
+            </select>
+          </div><hr>
+        <!-- <div class="mb-5 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div> -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  </body>
+  <script src="/formvalid.js"></script>
+</html>

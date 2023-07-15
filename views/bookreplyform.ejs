@@ -1,0 +1,62 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<h1 class="text-center p-3 m-3">Reply this booking</h1>
+<form method="post" action="/bookings/reply" novalidate class="needs-validation m-3 p-3">
+    <div class="mb-3">
+        <label for="prodid" class="form-label">Booking ID</label>
+        <input type="text" class="form-control" id="prodid" aria-describedby="emailHelp" value="<%= book._id %>" required readonly name="book[id]">
+        <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+      </div><br>
+    <div class="mb-3">
+      <label for="prodid" class="form-label">Product ID</label>
+      <input type="text" class="form-control" id="prodid" aria-describedby="emailHelp" value="<%= book.Item %>" required readonly name="book[Item]">
+      <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+    </div><br>
+    <div class="mb-3">
+      <label for="fdate" class="form-label">Booking From</label>
+      <input type="text" class="form-control" id="fdate" name="book[Bookfrom]" value="<%= book.Bookfrom %>" readonly required>
+    </div><br>
+    <div class="mb-3">
+        <label for="fdate" class="form-label">Booking Till</label>
+        <input type="text" class="form-control" id="fdate" name="book[Bookto]" value="<%= book.Bookto %>" readonly required>
+      </div><br>
+    <!-- <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div> -->
+    <div class="mb-3">
+        <label for="message" class="form-label">Message for Customer</label>
+        <textarea class="form-control" id="message" name="book[Message]"></textarea>
+      </div><br>
+      <div class="mb-3">
+        <label for="status" class="form-label">Status of Reply</label>
+        <select class="form-control" id="status" name="book[Status]" onchange="showamt()" required>
+            <option value="Aprooved">Aproove</option>
+            <option value="Refused" selected>Refuse</option>
+        </select>
+      </div><br>
+      <div class="mb-3" id="finalambox" style="display: none;">
+        <label for="finalamt" class="form-label">Final Amount</label>
+        <input type="number" class="form-control" id="finalamt" name="book[Finalamt]"><br>
+        <input type="checkbox" class="form-input" id="down" name="Down">
+        <label for="down" class="form-label">Put down this product</label><br><br>
+        <label for="avf" class="form-label">Product would be available after : </label>
+        <input type="datetime-local" class="form-control" id="avf" name="product[Availableafter]" >
+              <div id="emailHelp" class="form-text">Applicable only if you put down this product</div>
+              <br>
+      </div><br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+<script>
+    const showamt=()=>{
+        if(document.getElementById('status').value=='Aprooved'){
+            document.getElementById('finalambox').style.display=''
+            // document.getElementById('avf').value=
+            var now = new Date("<%= book.Bookto %>");
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('avf').value = now.toISOString().slice(0,16);
+        }else{
+            document.getElementById('finalambox').style.display='none'
+        }
+    }
+</script>
+  <script src="/formvalid.js"></script>

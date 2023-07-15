@@ -1,0 +1,27 @@
+<%- include('partials/broilerup') %>
+<h1 class="text-3xl text-center font-bold to-blue-700 p-5">Booking Requests for this Product</h1>
+<% for( let book of books ) { %>
+    <div class="m-3 p-3 rounded-3xl border-[3px] border-blue-700">
+        <h1 class="text-xl text-center font-bold p-5">Booking Request ID : <%= book._id %></h1><hr class="h-2 bg-blue-600">
+        <div class="grid grid-cols-2 grid-flow-row gap-4 p-3">
+            <span class="p-2 text-lg">Item</span>
+            <span class="p-2 text-lg"><a href="/products/view<%= book.Item._id %>" class="font-bold hover:text-red-800"><%= book.Item.Name %></a></span>
+            
+            <span class="p-2 text-lg">Customer</span>
+            <span class="p-2 text-lg"><a href="/users/view<%= book.Customer._id %>" class="font-bold hover:text-red-800"><%= book.Customer.username %></a></span>
+            <% for( let att of [['Requested On',book.Reqdate],['Book From',book.Bookfrom],['Book Till',book.Bookto],['Status',book.Status],['Final Amount',book.Finalamt||'Pending'],['Message from Customer',book.Custmessage||`<span class="text-gray-500">No Message</span>`]] ) { %>
+                <span class="p-2 text-lg"><%= att[0] %></span>
+                <span class="p-2 text-lg"><%- att[1] %></span>
+            <% } %>
+        </div>
+        <div class="m-3 p-3">
+            <% if (book.Status=='Pending') { %>
+             <a href="/bookings/reply<%= book._id %>" class="px-5 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-800">Reply</a>
+            <% } else { %>
+                <span class="px-5 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-800">Replied</span>
+                <% } %>
+
+            </div>
+        </div> <% } %>
+
+<%- include('partials/broilerdn') %>

@@ -1,0 +1,108 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1 style="text-align: center;" class="m-2 p-2">Edit your Product</h1>
+    <form method="post" action="/products/edit?_method=PATCH" novalidate  class="m-3 p-3 needs-validation" enctype="multipart/form-data">
+        <div class="mb-5">
+          <label for="Name" class="form-label">Name of Your Product</label>
+          <input type="text" class="form-control" id="Name" aria-describedby="emailHelp" name="product[Name]" required value="<%= prod.Name %>">
+          <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div><hr>
+        <div class="mb-5">
+          <label for="Price" class="form-label">Rent</label>
+          <input type="number" class="form-control" id="Price" name="product[Price]" value="<%= prod.Price %>">
+          <select class="form-select" aria-label="Default select example" name="product[Basis]" required>
+            <option>Basis of charging</option>
+            <option value="Hour" <%= prod.Basis=='Hour'?'selected':'' %>>Per Hour</option>
+            <option value="Day" <%= prod.Basis=='Day'?'selected':''%>>Per Day</option>
+            <option value="Week" <%= prod.Basis=='Week'?'selected':''%>>Per Week</option>
+            <option value="Month" <%= prod.Basis=='Month'?'selected':''%>>Per Month</option>
+            <option value="Year" <%= prod.Basis=='Year'?'selected':''%>>Per Year</option>
+          </select>
+        </div><hr>
+        <div class="mb-5">
+            <label for="pickup" class="form-label">Pickup point for your Product</label>
+            <input type="text" class="form-control" id="pickup" aria-describedby="emailHelp" name="product[Place]" required value="<%= prod.Place %>">
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+          </div><hr>
+          <div class="mb-5">
+            <div style="width: 100vw;">Delete selected Images :</div>
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                
+                <% for( let img of prod.Images ) { %>
+                
+                    <input type="checkbox" class="btn-check" id="btncheck<%= img.filename %>" autocomplete="off" value="<%= img.filename %>" name="deleteimg[]">
+                    <label class="btn btn-outline-warning" for="btncheck<%= img.filename %>"><img src="<%= img.path %>" alt="<%= img.originalname %>" style="width: 10vw;border: 1px solid black;"></label>
+                    <% } %>
+              
+              </div><br><br>
+            <label for="addImages" class="form-label">Add Images of Product</label>
+            <input type="file" class="form-control" id="addImages" name='addImages'  multiple>
+             <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>  -->
+          </div><hr>
+          <div class="mb-5">
+            <div>Previous Thumbnail</div><br><img src="<%= prod.Thumbnail.path  %>" alt="" style="width: 20vw;"><br><br>
+            <label for="Image" class="form-label">Change Thumbnail of Product</label>
+            <input type="file" class="form-control" id="Image" name='ChangeThumbnail'  >
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+          </div><hr>
+          <div class="mb-5">
+            <label for="Desc" class="form-label">Description of Your Product</label>
+            <textarea class="form-control" id="Desc" name="product[Desc]" required style="white-space: pre-wrap;"><%= prod.Desc %></textarea>
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+          </div><hr>
+          <div class="mb-5">
+            <label for="Catagory" class="form-label">Catagory of your Product</label>
+            <!-- <input type="password" class="form-control" id="Price" name="product[Price]"> -->
+            <select class="form-select" aria-label="Default select example" name="product[Catagory]" required id="Catagory" aria-readonly="true">
+              <option >catagory</option>
+             <% for( let cat of catagories ) { %>
+             
+              <option value="<%= cat %>" <%= prod.Catagory==cat?'selected="true"':'' %>><%= cat %></option>
+             <% } %>
+             
+            </select>
+          </div><hr>
+        <!-- <div class="mb-5 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div> -->
+        <div class="mb-5">
+            <!-- <h3>Previous Thumbnail</h3><br><img src="prod.Thumbnail.path" alt="" style="width: 5vw;"> -->
+            <label for="Available" class="form-label">This product is available now</label>
+            <select  class="form-control" id="Available" name='product[Available]' onchange="avfsee()" >
+                <option value="true" selected>Yes</option>
+                <option value="false">No</option>
+                
+            </select><br>
+            <div id="avfbox" style="display: none;">
+              <label for="avf" class="form-label">Product would be available after : </label>
+              <input type="datetime-local" class="form-control" id="avf" name="product[Availableafter]" >
+              <div id="emailHelp" class="form-text">Applicable only if you put down this product</div>
+             <br>
+            </div>
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+          </div><hr>
+        <input type="text" name="prodid" id="" value="<%= prod._id %>" style="display: none;">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  </body>
+  <script src="/formvalid.js"></script>
+  <script>
+    const avfsee=()=>{
+      if(document.getElementById('Available').value=="false"){
+        document.getElementById('avfbox').style.display=""
+      }else{
+        document.getElementById('avfbox').style.display="none"
+      }
+    }
+  </script>
+</html>
