@@ -23,7 +23,7 @@
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="ans[product]" id="flexRadioDefault<%= prod._id %>" value="<%= prod._id %>">
                 <label class="form-check-label" for="flexRadioDefault<%= prod._id %>" style="display: grid;grid-template-columns: 10vw auto;justify-content: start;">
-                   <span class="mx-5"><%= prod.Name %></span><span class="mx-5"><a href="/products/view<%= prod._id %>">View</a></span>
+                   <div style="display: grid;grid-template-columns: 20vw 20vw;"><span class=""><%= prod.Name %></span><span class=""><a href="/products/view<%= prod._id %>">View</a></span></div>
                 </label>
             </div>
             <% } %>

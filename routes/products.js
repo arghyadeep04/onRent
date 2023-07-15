@@ -149,7 +149,7 @@ productRouter.patch('/edit',auths.checkAuth,upload.fields([{name: 'ChangeThumbna
 
 })
 
-productRouter.get('/favourites',(req,res)=>{
+productRouter.get('/favourites',auths.checkAuth,(req,res)=>{
     User.findById(req.user._id).populate('Stared').then(user=>{
 
         res.render('favprods',{products:user.Stared})

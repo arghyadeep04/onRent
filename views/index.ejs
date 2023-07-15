@@ -82,11 +82,11 @@
  
             <%- include('partials/alert') %>
           <% } %>
-          <div class="flex justify-around rounded-2xl border-[3px] border-sky-700 p-3 m-3 max-w-[95vw]">
-            <a href="/bookings/mybookings"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800 m-2 max-w-[20vw] text-sm md:text-lg">My Bookings</button></a>
-            <a href="/products/inventory"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800 m-2 max-w-[20vw] text-sm md:text-lg">My Inventory</button></a>
-            <a href="/demands/alldemands"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800 m-2 max-w-[20vw] text-sm md:text-lg">Demands</button></a>
-            <a href="/products/favourites"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800 m-2 max-w-[20vw] text-sm md:text-lg">Favourite</button></a>
+          <div class="flex justify-around rounded-2xl border-[3px] border-sky-700 p-3 m-3 -mx-9 md:mx-3 md:max-w-[95vw]">
+            <a href="/bookings/mybookings"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800 md:m-2 md:max-w-[20vw] text-xs md:text-lg h-16">My Bookings</button></a>
+            <a href="/products/inventory"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800 md:m-2 md:max-w-[20vw] text-xs md:text-lg h-16">My Inventory</button></a>
+            <a href="/demands/alldemands"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800 md:m-2 md:max-w-[20vw] text-xs md:text-lg h-16">Demands</button></a>
+            <a href="/products/favourites"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800 md:m-2 md:max-w-[20vw] text-xs md:text-lg h-16">Favourite</button></a>
 
 
           </div>
@@ -140,10 +140,10 @@
 <% for( let prod of products ) { %>
 
  
-    <div class="flex justify-around rounded-xl shadow-xl w-[90vw] m-[-1vw] my-[2vh] border-[3px] border-blue-900 md:m-[3vw] <%= prod.Available?"bg-white":"bg-gray-400" %>">
+    <div class="flex justify-around rounded-xl shadow-xl w-[90vw] m-[-1vw] my-[2vh] border-[3px] border-blue-900 mx-[-5vw] sm:mx-[3vw] <%= prod.Available?"bg-white":"bg-gray-400" %>">
         <div class="max-w-[30%] max-h-[50vh]">
         <img src="<%= prod.Thumbnail.path %>" alt="" class=" m-3 rounded-lg max-h-[5vh]: sm:max-h-[40vh]">
-        <div class="font-bold text-xl px-[4vw] py-[1vh] text-center max-h-[10vh]">Rent : Rs <%= prod.Price %> / <%= prod.Basis %></div></div>
+        <div class="font-bold text-sm lg:text-xl px-[4vw] py-[1vh] text-center max-h-[10vh]">Rent : Rs <%= prod.Price %> / <%= prod.Basis %></div></div>
         <div class="w-[60%]">
             <h5 class="text-2xl font-serif text-center m-2"><%= prod.Name %></h5>
             <p class="text-md text-center p-3"><%- prod.Desc.slice(0,100).replace(/\n/g,"<br>")+"..." %></p>

@@ -27,7 +27,7 @@ rules:{
 }))
 const prodscheme=joi.object({
     id:joi.string().escapeHTML(),
-    Name:joi.string().required().min(5).max(50).escapeHTML(),
+    Name:joi.string().required().min(1).max(50).escapeHTML(),
     Place:joi.string().required().min(5).max(50).escapeHTML(),
     Price:joi.number().max(10000).min(0).required(),
     Basis:joi.string().required().escapeHTML(),

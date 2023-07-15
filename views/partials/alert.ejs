@@ -1,11 +1,11 @@
 <% if (message!='') { %>
  
     <div id="alertbox"
-      class="mb-3 hidden w-full items-center rounded-lg bg-<%= type %>-100 px-6 py-5 text-base text-<%= type %>-800 data-[te-alert-show]:inline-flex"
+      class="mb-3 hidden w-full items-center rounded-lg bg-<%= type %>-100 px-3 py-5 text-base text-<%= type %>-800 data-[te-alert-show]:inline-flex"
       role="alert"
       data-te-alert-init
       data-te-alert-show>
-      <strong class="mr-1">Message :  </strong> <%= message %>
+      <strong class="mr-1">Message : </strong> <%= message %>
       <button id="dismisser"
         type="button"
         class="ml-auto box-content rounded-none border-none p-1 text-warning-900 opacity-50 hover:text-warning-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"

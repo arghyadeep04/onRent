@@ -4,7 +4,7 @@
  
     <%- include('partials/alert') %>
   <% } %>
-  <div class="flex justify-around rounded-2xl border-[3px] border-sky-700 p-3 m-3">
+  <div class="flex justify-around rounded-2xl border-[3px] border-sky-700 p-3 m-3 mx-0 md:mx-3">
    <a href="/demands/demandform"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800">Create Demand</button></a>
    <a href="/demands/mydemands"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800">My Demands</button></a>
 
@@ -13,11 +13,11 @@
 <h1 class="font-bold text-3xl text-blue-800 text-center p-3 m-3"><%= title %></h1>
   <% for( let demand of demands) { %>
   
-<div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-5">
-    <div class="flex justify-start px-3">
-    <img src="<%= demand.User.Photo.path %>" alt="" class="rounded-full h-10 w-10">
-    <span class="px-5 text-lg font-bold py-2 mb-10"><%= demand.User.username %></span>
-    </div>
+<div class="p-6 bg-white border border-gray-400 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-[-5vw] my-2 md:mx-5">
+  <a href="/users/view<%= demand.User._id %>"><div class="flex justify-start px-3">
+    <img src="<%= demand.User.Photo.path %>" alt="" class="rounded-full h-10 w-10 hover:w-12">
+    <span class="px-5 text-lg font-bold py-2 mb-10 text-blue-500 underline hover:text-blue-600"><%= demand.User.username %></span>
+    </div></a>
     <div class="px-5 pt-5">
         <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Type : <%= demand.Type %></h5>
     </div>
@@ -34,5 +34,5 @@
   <% } %>
 
 <%- include('partials/navbardn') %>
-
+<script src="/navlogic.js"></script>
 <%- include('partials/broilerdn') %>
