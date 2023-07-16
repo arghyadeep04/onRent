@@ -41,6 +41,7 @@ geometry: {
   },
   Owner:{type:mongoose.Schema.Types.ObjectId,ref:'User'},
   Reviews:[{type:mongoose.Schema.Types.ObjectId,ref:'Reviews'}],
+  Avgrating:Number
 },{toJSON:{virtuals:true}})
 
 

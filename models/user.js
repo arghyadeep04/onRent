@@ -12,7 +12,19 @@ const userSchma= new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Products'
     }],
-    Stared:[{type:mongoose.Schema.Types.ObjectId,ref:'Products'}]
+    Stared:[{type:mongoose.Schema.Types.ObjectId,ref:'Products'}],
+    Place:String,
+geometry: {
+    type: {
+      type: String, // Don't do `{ location: { type: String } }`
+      enum: ['Point'], // 'location.type' must be 'Point'
+      // required: true
+    },
+    coordinates: {
+      type: [Number],
+      // required: true
+    }
+  },
 })
 userSchma.plugin(passport)
 const User=mongoose.model('User',userSchma)

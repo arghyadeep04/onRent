@@ -59,7 +59,8 @@ const userscheme=joi.object({
     Email:joi.string().email().required().escapeHTML(),
     password:joi.string().required(),
     Phno:joi.number().integer().required().min(1000000000).max(9999999999),
-    EmailOtp:joi.number()
+    EmailOtp:joi.number(),
+    Place:joi.string()
     // Photo:joi.required()
 })
 

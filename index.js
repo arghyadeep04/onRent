@@ -105,6 +105,6 @@ app.use((err,req,res,next)=>{
     res.status(status).render('error',{err})
 })
 
-app.listen(80,process.env.PHONE_IP||"localhost",()=>{
+app.listen(80,()=>{
     console.log("http:/localhost:80")
 })

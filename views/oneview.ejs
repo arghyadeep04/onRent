@@ -49,6 +49,11 @@
 
 </div>
 <hr><h1 class="text-center text-3xl">Reviews</h1><hr>
+<% if (product.Reviews.length!=0) { %>
+ 
+  <h1 class="text-center text-2xl">Average Rating : <%= String(product.Avgrating).slice(0,4) %> <span class="text-yellow-500 text-3xl">★</span></h1><hr>
+<% } %>
+
 <div id="reviews">
    <% for( let review of product.Reviews ) { %>
    <!-- <section

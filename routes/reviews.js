@@ -15,21 +15,28 @@ revRouter.post('/addreview',(req,res,next)=>{valid(revscheme,req.body,next)},che
     if(!prod.Reviews){
         prod.Reviews=[]
     }
+    if(!prod.Avgrating){
+        prod.Avgrating=0
+    }
+    console.log(prod.Avgrating,Number(inp.Rating),prod.Reviews.length)
+    prod.Avgrating=(prod.Avgrating*prod.Reviews.length+Number(inp.Rating))/(prod.Reviews.length+1)
     prod.Reviews.push(myrev._id)
     let test=await Promise.all([prod.save(),myrev.save()])
-    console.log(test)
+    // console.log(test)
     req.flash('feedback','Your review was added successfully')
-    req.flash('type','green')
+    req.flash('type','success')
     res.redirect(`/products/view${inp.Product}`)
 })
 
 revRouter.delete("/deletereview",async(req,res)=>{
     const {revid,grdid}=req.body
     let owid=await review.findById(revid)
+    let prd=await products.findById(grdid)
+    let Avgrating=(prd.Avgrating*prd.Reviews.length-owid.Rating)/(prd.Reviews.length-1)
     if(isOwner(owid.User,req)){
     await Promise.all([
         review.findByIdAndRemove(revid),
-        products.findByIdAndUpdate(grdid,{$pull:{Reviews:revid}})
+        products.findByIdAndUpdate(grdid,{$pull:{Reviews:revid},Avgrating})
     ])
     req.flash('feedback','Review Successfully Deleted')
     req.flash('type','success')

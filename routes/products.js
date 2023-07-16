@@ -11,6 +11,8 @@ const mbxGeocoding=require('@mapbox/mapbox-sdk/services/geocoding')
 const User = require('../models/user')
 const { valid, prodscheme } = require('../validation')
 const geocoder=mbxGeocoding({accessToken:mapToken})
+const {distKm}=require('../geograph')
+
 
 productRouter.get('/index',(req,res)=>{
     products.find({}).then(products=>{
@@ -29,10 +31,19 @@ productRouter.get('/view:id',(req,res)=>{
     })
 })
 
-productRouter.post('/searchresult',(req,res)=>{
-    const {search,Catagory}=req.body;
+productRouter.post('/searchresult',auths.checkAuth,(req,res)=>{
+    const {search,Catagory,sortby}=req.body;
+    const compare=(a,b)=>{
+        // console.log(req.user)
+        return distKm(a.geometry.coordinates,req.user.geometry.coordinates)-distKm(b.geometry.coordinates,req.user.geometry.coordinates)
+    }
     console.log(`this.Name.toLowerCase().includes('${search.toLowerCase()}') && this.Catagory.includes('${Catagory}')`)
     products.find({$where:`this.Name.toLowerCase().includes('${search.toLowerCase()}') && this.Catagory.includes('${Catagory}')`}).then(products=>{
+        console.log(sortby)
+        if(sortby=='true'){
+            console.log("yes yes")
+            products.sort(compare)
+        }
         for (let i in products) {
             products[i].Desc=products[i].Desc.replace('\n','<br>');
             
@@ -82,7 +93,7 @@ productRouter.get('/inventory',auths.checkAuth,async(req,res)=>{
     })
 })
 
-productRouter.get('/edit:id',(req,res)=>{
+productRouter.get('/edit:id',auths.checkAuth,(req,res)=>{
     products.findById(req.params.id).then(prod=>{
         if (auths.isOwner(prod.Owner,req)) {
             
@@ -155,5 +166,7 @@ productRouter.get('/favourites',auths.checkAuth,(req,res)=>{
         res.render('favprods',{products:user.Stared})
     })
 })
+
+
 
 module.exports=productRouter
