@@ -42,8 +42,8 @@ app.use(parser())
 const session=require('express-session')
 const MongoStore=require('connect-mongo')
 const store=MongoStore.create({
-    mongoUrl:'mongodb://127.0.0.1:27017/onrent',
-    secret:'yelp',
+    mongoUrl:process.env.ATLAS_URL,
+    secret:process.env.SECRET_STORE,
     touchAfter:24*60*60
 })
 store.on('error',e=>{
@@ -51,7 +51,7 @@ store.on('error',e=>{
 })
 app.use(session({
     store,
-    secret:'onstore',
+    secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
     cookie:{
@@ -78,7 +78,7 @@ const verRouter = require('./routes/verification')
 app.use(helmet({contentSecurityPolicy:false}))
 // 
 // process.env.ATLAS_URL
-mongoose.connect('mongodb://127.0.0.1:27017/onstore')
+mongoose.connect(process.env.ATLAS_URL)
 .then(()=>{
     console.log("connected")
 })
