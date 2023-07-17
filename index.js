@@ -96,6 +96,12 @@ app.use('/demands',demRouter)
 app.use('/review',revrout)
 app.use('/questions',quesRouter)
 app.use('/verification',verRouter)
+app.get('/about',(req,res)=>{
+    res.render('about',{logdin:req.isAuthenticated()})
+})
+app.get('/contact',(req,res)=>{
+    res.render('contact',{logdin:req.isAuthenticated()})
+})
 app.all("*",(req,res,next)=>{
     throw new Errs.AppErrors(404,"Not Found")
 })
