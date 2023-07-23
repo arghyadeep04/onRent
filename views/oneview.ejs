@@ -48,10 +48,10 @@
      <button class="rounded-3xl bg-pink-500 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-blue-800 m-3 text-white favourite hidden" id="remfav">Remove from favourites</button><br>
 
 </div>
-<hr><h1 class="text-center text-3xl">Reviews</h1><hr>
+<hr><h1 class="text-center text-3xl text-blue-700">Reviews</h1><hr>
 <% if (product.Reviews.length!=0) { %>
  
-  <h1 class="text-center text-2xl">Average Rating : <%= String(product.Avgrating).slice(0,4) %> <span class="text-yellow-500 text-3xl">★</span></h1><hr>
+  <h1 class="text-center text-2xl text-blue-700">Average Rating : <%= String(product.Avgrating).slice(0,4) %> <span class="text-yellow-500 text-3xl">★</span></h1><hr>
 <% } %>
 
 <div id="reviews">
@@ -93,12 +93,12 @@
   </div>
 </div> -->
 <div class="flex flex-col gap-3 mt-14 m-4">
-  <div class="flex flex-col gap-4 bg-gray-200 p-4">
+  <div class="flex flex-col gap-4 bg-gray-200 p-4 dark:bg-gray-800">
       <!-- Profile and Rating -->
       <div class="flex justify justify-between">
           <div class="flex gap-2">
               <img class="w-10 h-10 text-center rounded-full" src="<%= review.Userphoto %>">
-              <span class="py-1"><%= review.Username %></span>
+              <span class="py-1 dark:text-blue-500"><%= review.Username %></span>
           </div>
           <div class="flex p-1 gap-1 text-orange-300">
             <p class="mb-0 font-semibold text-neutral-500 dark:text-neutral-400">
@@ -109,11 +109,11 @@
           </div>
       </div>
 
-      <div>
+      <div class="dark:text-blue-600">
           <%= review.Body %>
       </div>
 
-      <div class="flex justify-between text-sm text-gray-500">
+      <div class="flex justify-between text-sm text-blue-500">
           <span><%= review.Date %></span>
           <!-- <button class="p-1 px-2 bg-gray-900 hover:bg-gray-950 border border-gray-950 bg-opacity-60">
               <ion-icon name="share-outline"></ion-icon> Share</button> -->
@@ -123,7 +123,7 @@
    <form action="/review/deletereview?_method=DELETE" method="post">
      <input type="text" name="revid" id="id" value="<%= review._id %>" style="display: none;">
      <input type="text" name="grdid" id="id" value="<%= product._id %>" style="display: none;">
-     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-5" type="submit">Delete review</button>
+     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-2" type="submit">Delete review</button>
    </form><br>
    <% } %><hr><br></div>
 <!-- </section> -->
@@ -132,43 +132,43 @@
 <% if (user.type!=0) { %>
 
  <div class="w-full max-w-[50rem]">
-   <h1 class="text-3xl text-center">Add your Review</h1>
-   <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 needs-validation" method="post" action="/review/addreview">
+   <h1 class="text-3xl text-center text-blue-600 ">Add your Review</h1>
+   <form class=" shadow-md rounded px-8 pt-6 pb-8 mb-4 needs-validation dark:bg-gray-800" method="post" action="/review/addreview">
      <div class="mb-4">
-       <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+       <label class="block text-gray-700 dark:text-green-600 text-sm font-bold mb-2" for="username">
          Username
        </label>
        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" name="Username" required value="<%= user.username %>" readonly>
      </div>
      <div class="mb-6">
-       <label class="block text-gray-700 text-sm font-bold mb-2" for="body">
+       <label class="block text-gray-700 dark:text-green-600 text-sm font-bold mb-2" for="body">
          Review
        </label>
        <textarea class="shadow appearance-none border border-red-500 rounded w-full py-2 h-40 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="body" placeholder="review" name="Body" style="white-space: pre-wrap;"></textarea>
      </div>
      <div class="mb-4">
-       <label class="block text-gray-700 text-sm font-bold mb-2" for="rating">
+       <label class="block text-gray-700 dark:text-green-600 text-sm font-bold mb-2" for="rating">
          Rating
        </label>
        <!-- <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="rating" type="text" placeholder="Rate 1-5" name="Rating" required> -->
        <fieldset class="starability-basic">
          <!-- <legend>First rating:</legend> -->
          <!-- <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." /> -->
-         <input type="radio" id="second-rate1" name="Rating" value="1" />
+         <input type="radio" id="second-rate1" name="Rating" value="1" required/>
          <label for="second-rate1" title="Terrible">1 star</label>
-         <input type="radio" id="second-rate2" name="Rating" value="2" />
+         <input type="radio" id="second-rate2" name="Rating" value="2" required/>
          <label for="second-rate2" title="Not good">2 stars</label>
-         <input type="radio" id="second-rate3" name="Rating" value="3" />
+         <input type="radio" id="second-rate3" name="Rating" value="3" required/>
          <label for="second-rate3" title="Average">3 stars</label>
-         <input type="radio" id="second-rate4" name="Rating" value="4" />
+         <input type="radio" id="second-rate4" name="Rating" value="4" required/>
          <label for="second-rate4" title="Very good">4 stars</label>
-         <input type="radio" id="second-rate5" name="Rating" value="5" />
+         <input type="radio" id="second-rate5" name="Rating" value="5" required/>
          <label for="second-rate5" title="Amazing">5 stars</label>
        </fieldset>
      </div>
      <input type="text" name="Product" style="visibility: hidden;" value="<%= product._id %>">
      <div class="flex items-center justify-between">
-       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:bg-green-600" type="submit">
          Submit
        </button>
        

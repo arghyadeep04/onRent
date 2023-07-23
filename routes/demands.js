@@ -1,5 +1,5 @@
 const exp=require('express')
-const { checkAuth, isOwner } = require('../auths')
+const { checkAuth, isOwner } = require('../Utils/auths')
 const Demand = require('../models/demand')
 const products = require('../models/products')
 const demRouter=exp.Router()

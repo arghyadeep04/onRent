@@ -26,13 +26,7 @@
           <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="Email" required>
           <div class="valid-feedback" >Looks good</div>
           <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div><br>
-          <div class="mb-3">
-            <label for="emailotp" class="form-label">Enter OTP sent to avobe email address</label>
-            <input type="number" class="form-control" id="emailotp" aria-describedby="emailHelp" name="EmailOtp" required>
-            <button class="btn btn-primary" id="emailotpb" type="button">Get OTP</button>
-            <div class="valid-feedback" >Looks good</div>
-            <div id="emailHelp" class="form-text">After clicking Get OTP please wait for 1 minute before clicking it again</div>
-        </div>
+  
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
           <input type="password" class="form-control" id="password" name="password" required>
@@ -49,13 +43,32 @@
           <label for="Phno" class="form-label">Phone Number</label>
           <input type="number" class="form-control" id="Phno" name="Phno" required>
           <div class="valid-feedback" >Looks good</div>
-
         </div>
+
         <div class="mb-3">
           <label for="Place" class="form-label">Current Address</label>
           <input type="text" class="form-control" id="Place" name="Place" required>
           <div class="valid-feedback" >Looks good</div>
 
+        </div>
+        <div class="mb-3">
+          <label for="emailotp" class="form-label">Enter OTP sent to avobe email address</label>
+          <input type="number" class="form-control" id="emailotp" aria-describedby="emailHelp" name="EmailOtp" required>
+          <div class="valid-feedback" >Looks good</div>
+          <!-- <button class="btn btn-primary" id="emailotpb" type="button">Get OTP</button>
+          <div id="emailHelp" class="form-text">After clicking Get OTP please wait for 1 minute before clicking it again</div> -->
+      </div>
+        <div class="mb-3">
+          <label for="phoneotp" class="form-label">Enter OTP sent to avobe Phone Number</label>
+          <input type="number" class="form-control" id="phoneotp" aria-describedby="emailHelp" name="PhoneOtp" required placeholder="eg. 0000">
+          <div class="valid-feedback" >Looks good</div>
+          <!-- <button class="btn btn-primary" id="phoneotpb" type="button">Get OTP</button>
+            <div id="emailHelp" class="form-text">After clicking Get OTP please wait for 1 minute before clicking it again</div> -->
+
+          </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" id="otpb" type="button">Get OTPs</button>
+            <div id="emailHelp" class="form-text">After clicking Get OTP please wait for 2 minute before clicking it again</div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -83,12 +96,28 @@
 })()
   </script>
   <script>
-    document.getElementById('emailotpb').addEventListener('click',async ()=>{
-      document.getElementById('emailotpb').style.display='none'
+    // document.getElementById('emailotpb').addEventListener('click',async ()=>{
+    //   document.getElementById('emailotpb').style.display='none'
+    //   setTimeout(()=>{
+    //     document.getElementById('emailotpb').style.display=''
+    //   },60000)
+    //   await fetch(`/verification/email${document.getElementById('email').value}`)
+    // })
+ 
+    //   document.getElementById('phoneotpb').addEventListener('click',async ()=>{
+    //     document.getElementById('phoneotpb').style.display='none'
+    //     setTimeout(()=>{
+    //       document.getElementById('phoneotpb').style.display=''
+    //     },60000)
+    //     await fetch(`/verification/phone${document.getElementById('Phno').value}`)
+    //   })
+
+      document.getElementById('otpb').addEventListener('click',async ()=>{
+      document.getElementById('otpb').style.display='none'
       setTimeout(()=>{
-        document.getElementById('emailotpb').style.display=''
-      },60000)
-      await fetch(`/verification/email${document.getElementById('email').value}`)
+        document.getElementById('otpb').style.display=''
+      },120000)
+      await fetch(`/verification/both/email${document.getElementById('email').value}/phone${document.getElementById('Phno').value}`)
     })
-  </script>
+    </script>
 </html>

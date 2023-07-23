@@ -1,9 +1,9 @@
 const exp=require('express')
-const { checkAuth, isOwner } = require('../auths')
+const { checkAuth, isOwner } = require('../Utils/auths')
 const revRouter=exp.Router()
 const review=require('../models/reviews')
 const products = require('../models/products')
-const { valid, revscheme } = require('../validation')
+const { valid, revscheme } = require('../Utils/validation')
 revRouter.post('/addreview',(req,res,next)=>{valid(revscheme,req.body,next)},checkAuth,async (req,res)=>{
     let inp=req.body
     inp.Username=req.user.username

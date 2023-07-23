@@ -1,87 +1,10 @@
 <%- include('partials/broilerup') %>
-    <!-- navbar -->
-    <nav class="justify-between bg-slate-800 md:hidden h-14">
-        <div class="flex justify-between px-4 pt-4">
-            <div class="text-red-100 text-2xl m-0 h-8">OnRent</div>
-            <button
-                class="w-16 border-6 border-red-100 h-8 -m-0 rounded-2xl text-white px-4 bg-yellow-100 hover:bg-red-200 active:bg-red-600"
-                id="ham">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png"
-                    alt="" class="h-8" />
-            </button>
-        </div>
+<% if (message!='') { %>
+ 
+    <%- include('partials/alert') %>
+  <% } %>
+    <%- include('partials/navbarup') %>
         
-    </nav>
-    <a href="/">
-        <div class="options p-5 bg-slate-700 text-yellow-300 mt-0 h-12 pl-16 cursor-pointer hidden z-5 hover:font-bold">
-            Home
-        </div>
-    </a>
-    <a href="/about">
-        <div class="options py-3 px-5 bg-slate-700 text-yellow-300 m-0 h-10 pl-16 cursor-pointer hidden z-5 hover:font-bold">
-            About
-        </div>
-    </a>
-    <a href="/contact">
-        <div class="options py-3 px-5 bg-slate-700 text-yellow-300 m-0 h-10 pl-16 cursor-pointer hidden z-5 hover:font-bold">
-            Contact
-        </div>
-    </a>
-    <% if (!logdin) { %>
-        <a href="/users/loginform">
-            <div class="options py-3 px-5 bg-slate-700 m-0 h-10 pl-16 cursor-pointer hidden text-red-400 z-5 hover:font-bold">
-                Login
-            </div></a>
-    <% } else { %>
- 
-
-        <a href="/users/logout">
-            <div class="options py-3 px-5 bg-slate-700 m-0 h-10 pl-16 cursor-pointer hidden text-red-400 z-5 hover:font-bold">
-                LogOut
-            </div>
-    </a>
-
-    <% }  %>
-     
-    <a href="/users/registerform">
-        <div class="options py-3 px-5 bg-slate-700 m-0 h-12 pl-16 cursor-pointer hidden text-red-400 z-5 hover:font-bold">
-            Signup
-        </div>
-    </a>
-    <nav class="md:flex bg-slate-800 justify-between hidden md:visible ">
-        <span class="text-red-100 text-2xl m-0 h-8 p-3">OnRent</span>
-        <ul class="flex justify-between">
-            <a href=""><li class="text-red-200 mx-5 my-4 hover:font-bold cursor-pointer">
-                Home
-            </li></a>
-            <a href="/about"><li class="text-red-200 mx-5 my-4 hover:font-bold cursor-pointer">
-                About
-            </li></a>
-            <a href="/contact"><li class="text-red-200 mx-5 my-4 hover:font-bold cursor-pointer">
-                Contact
-            </li></a>
-            <a href=""><li class="text-red-200 mx-5 my-4 hover:font-bold cursor-pointer">|</li></a>
-            <a href="/users/registerform"><li class="text-yellow-300 mx-5 my-4 hover:font-bold cursor-pointer">
-                Sign Up
-            </li></a>
-            <% if (!logdin) { %>
-                <a href="/users/loginform"><li class="text-yellow-300 mx-5 my-4 hover:font-bold cursor-pointer">
-                    Log In
-                </li></a>
-            <% } else { %>
-             
-            <a href="/users/logout"><li class="text-yellow-300 mx-5 my-4 hover:font-bold cursor-pointer">
-                Log Out
-            </li></a>
-            <% } %>
-        </ul>
-    </nav>
-    <!-- navbar -->
-    <div class="z-0 relative top-0 p-9" id="content">
-        <% if (message!='') { %>
- 
-            <%- include('partials/alert') %>
-          <% } %>
           <div class="flex justify-around rounded-2xl border-[3px] border-sky-700 p-3 m-3 -mx-9 md:mx-3 md:max-w-[95vw]">
             <a href="/bookings/mybookings"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800 md:m-2 md:max-w-[20vw] text-xs md:text-lg h-16">My Bookings</button></a>
             <a href="/products/inventory"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800 md:m-2 md:max-w-[20vw] text-xs md:text-lg h-16">My Inventory</button></a>
@@ -135,7 +58,7 @@
     </div>
     <div class="flex justify-around mb-4 my-3">
         <span><input id="default-checkbox" type="checkbox" value="true" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" name="sortby">
-        <label for="default-checkbox" class="font-bold ml-2 text-sm text-gray-900 dark:text-gray-300">Sort by Nearest First</label></span>
+        <label for="default-checkbox" class="font-bold ml-2 text-sm text-gray-900 dark:text-gray-100">Sort by Nearest First</label></span>
     </div><hr>
 </form>
 
@@ -144,7 +67,7 @@
 <% for( let prod of products ) { %>
 
  
-    <div class="flex justify-around rounded-xl shadow-xl w-[90vw] m-[-1vw] my-[2vh] border-[3px] border-blue-900 mx-[-5vw] sm:mx-[3vw] <%= prod.Available?"bg-white":"bg-gray-400" %>">
+    <div class="flex justify-around rounded-xl shadow-xl w-[90vw] m-[-1vw] my-[2vh] border-[3px] border-blue-900 mx-[-5vw] sm:mx-[3vw] <%= prod.Available?"bg-white":"bg-gray-400" %> dark:<%= prod.Available?"bg-gray-600":"bg-gray-500" %>">
         <div class="max-w-[30%] max-h-[50vh]">
         <img src="<%= prod.Thumbnail.path %>" alt="" class=" m-3 rounded-lg max-h-[5vh]: sm:max-h-[40vh]">
         <div class="font-bold text-sm lg:text-xl px-[4vw] py-[1vh] text-center max-h-[10vh]">Rent : Rs <%= prod.Price %> / <%= prod.Basis %></div></div>
@@ -159,9 +82,7 @@
     </div>
    <% } %>
 
-
-    </div>
-    <!-- navbar tested-->
+<%- include('partials/navbardn') %>
 <script src="/navlogic.js">
      
 </script>

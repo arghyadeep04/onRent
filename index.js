@@ -111,6 +111,10 @@ app.use((err,req,res,next)=>{
     res.status(status).render('error',{err})
 })
 
+// app.listen(80,'192.168.63.198'||'localhost',()=>{
+//     console.log("http:/localhost:80")
+// })
+
 app.listen(80,()=>{
     console.log("http:/localhost:80")
 })

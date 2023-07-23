@@ -5,13 +5,13 @@ const passport=require('passport')
 const {storage, cloudinary}=require('../cloudinary/index')
 const upload = multer({ storage })
 const products=require('../models/products')
-const auths=require('../auths')
+const auths=require('../Utils/auths')
 const mapToken=process.env.MAPBOX_TOKEN
 const mbxGeocoding=require('@mapbox/mapbox-sdk/services/geocoding')
 const User = require('../models/user')
-const { valid, prodscheme } = require('../validation')
+const { valid, prodscheme } = require('../Utils/validation')
 const geocoder=mbxGeocoding({accessToken:mapToken})
-const {distKm}=require('../geograph')
+const {distKm}=require('../Utils/geograph')
 
 
 productRouter.get('/index',(req,res)=>{
@@ -31,22 +31,28 @@ productRouter.get('/view:id',(req,res)=>{
     })
 })
 
-productRouter.post('/searchresult',auths.checkAuth,(req,res)=>{
+productRouter.post('/searchresult',(req,res)=>{
     const {search,Catagory,sortby}=req.body;
     const compare=(a,b)=>{
         // console.log(req.user)
         return distKm(a.geometry.coordinates,req.user.geometry.coordinates)-distKm(b.geometry.coordinates,req.user.geometry.coordinates)
     }
-    console.log(`this.Name.toLowerCase().includes('${search.toLowerCase()}') && this.Catagory.includes('${Catagory}')`)
-    products.find({$where:`this.Name.toLowerCase().includes('${search.toLowerCase()}') && this.Catagory.includes('${Catagory}')`}).then(products=>{
+    // console.log(`this.Name.toLowerCase().includes('${search.toLowerCase()}') && this.Catagory.includes('${Catagory}')`) 
+    let sarchexp=new RegExp(`${search}`,"i");let catagexp=new RegExp(`${Catagory}`,"i")
+    // console.log("<<<<<<<<<<<<<<<<<<<<",sarchexp,catagexp,">>>>>>>>>>>>>>>>>>>>>")
+    products.find({Name:{$regex:sarchexp},Catagory:{$regex:catagexp}}).then(products=>{
         console.log(sortby)
-        if(sortby=='true'){
-            console.log("yes yes")
+        if(sortby=='true' && req.isAuthenticated()){
+            // console.log("yes yes")
             products.sort(compare)
         }
         for (let i in products) {
             products[i].Desc=products[i].Desc.replace('\n','<br>');
             
+        }
+        if(!req.user){
+            req.flash('feedback',"We could'nt get your location as you are not logged in")
+            req.flash('type','red')
         }
         res.render('index',{products,logdin:req.isAuthenticated(),title:'Your Search Results',message:req.flash('feedback'),type:req.flash('type')})
 
@@ -134,16 +140,20 @@ productRouter.patch('/edit',auths.checkAuth,upload.fields([{name: 'ChangeThumbna
         }
 
         let Thumbnail=[]
-        console.log(req.files)
+        // console.log("///////////////////////////////////////////////////////////////////////",req.files.ChangeThumbnail)
     if((req.files.ChangeThumbnail)){
+        let myprod=await products.findById(req.body.prodid)
+        await cloudinary.uploader.destroy(myprod.Thumbnail.filename)
         Thumbnail=req.files.ChangeThumbnail.map(ele=>{
         return {
             originalname:ele.originalname,
             path:ele.path,
             filename:ele.filename
         }
-        })[0]
-        await products.findByIdAndUpdate(req.body.prodid,{...Thumbnail,Lasteditedon:Date.now()})
+        })
+        Thumbnail=Thumbnail[0]
+        // console.log("..............................................",Thumbnail)
+        await products.findByIdAndUpdate(req.body.prodid,{Thumbnail,Lasteditedon:Date.now()})
 }
     let final=await products.findByIdAndUpdate(req.body.prodid,inp)
     console.log(final)
@@ -163,7 +173,7 @@ productRouter.patch('/edit',auths.checkAuth,upload.fields([{name: 'ChangeThumbna
 productRouter.get('/favourites',auths.checkAuth,(req,res)=>{
     User.findById(req.user._id).populate('Stared').then(user=>{
 
-        res.render('favprods',{products:user.Stared})
+        res.render('favprods',{products:user.Stared,logdin:req.isAuthenticated()})
     })
 })
 

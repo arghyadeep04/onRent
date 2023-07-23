@@ -1,5 +1,5 @@
 const basejoi=require('joi')
-const Errs=require('./Utils/errors')
+const Errs=require('./errors')
 const sanitizeHtml =require('sanitize-html');
 const joi=basejoi.extend((joi) => ({
     base: joi.string(),
@@ -60,6 +60,7 @@ const userscheme=joi.object({
     password:joi.string().required(),
     Phno:joi.number().integer().required().min(1000000000).max(9999999999),
     EmailOtp:joi.number(),
+    PhoneOtp:joi.number(),
     Place:joi.string()
     // Photo:joi.required()
 })

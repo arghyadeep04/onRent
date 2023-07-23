@@ -1,15 +1,17 @@
 <%- include('partials/broilerup') %>
+<%- include('partials/alert') %>
 <h1 class="text-center text-blue-900 font-bold text-3xl m-5">Questions on this Product</h1>
 <div class="m-3 p-3">
     <% for( let question of ques ) { %>
-        <div class="m-2 px-3 text-xl">Question by : <a href="/users/view<%= question.Asker._id %>" class="text-blue-800 hover:text-red-900"><%= question.Asker.username %></a></div>
-        <div class="m-2 p-3 rounded-2xl shadow-lg border-[2px] border-blue-800">
+        <div class="m-2 -mx-2 md:mx-2 px-3 text-xl">Question by : <a href="/users/view<%= question.Asker._id %>" class="text-blue-800 hover:text-red-900"><%= question.Asker.username %></a></div>
+        <div class="m-2 -mx-2 md:mx-2 p-3 rounded-2xl shadow-lg border-[2px] border-blue-800">
             <p class="font-bold text-lg">Q) <%= question.Question %></p><hr>
             <div class="flex justify-start gap-2 text-lg text-gray-900 py-3">
                 <span>Ans : </span>
                 <div class="<%= question.Answer?'text-gray-700 px-5':'text-blue-500 underline hover:text-green-700' %>"><%- question.Answer?question.Answer:`<a href="/questions/answerq${question._id}">Answer this question</a>` %></div>
             </div>
-        </div>
+        </div><br>
+
     <% } %>
    
 </div>

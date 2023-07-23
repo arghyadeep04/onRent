@@ -1,10 +1,10 @@
 const exp=require('express')
 const bookRouter=exp.Router()
-const auths=require('../auths')
+const auths=require('../Utils/auths')
 const products=require('../models/products')
 const bookings=require('../models/bookings')
-const { valid, bookscheme } = require('../validation')
-const { emailSender } = require('../mailer')
+const { valid, bookscheme } = require('../Utils/validation')
+const { emailSender } = require('../Utils/mailer')
 bookRouter.get('/bookproduct:id',auths.checkAuth,(req,res,next)=>{
     products.findById(req.params.id).then(prod=>{
 

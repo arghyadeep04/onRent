@@ -1,5 +1,5 @@
 const exp=require('express')
-const { checkAuth, isOwner } = require('../auths')
+const { checkAuth, isOwner } = require('../Utils/auths')
 // const Demand = require('../models/demand')
 const products = require('../models/products')
 const Ques = require('../models/questions')
@@ -27,9 +27,10 @@ quesRouter.get('/answers:prodid',checkAuth,(req,res)=>{
 
 quesRouter.get('/queson:prodid',checkAuth,(req,res)=>{
     products.findById(req.params.prodid).then(prod=>{
+        console.log(req.params.prodid,prod)
         if(isOwner(prod.Owner,req)){
             Ques.find({Product:req.params.prodid}).populate('Asker').then(ques=>{
-                res.render('myquestions',{ques})
+                res.render('myquestions',{ques,message:req.flash('feeedback'),type:req.flash('type')})
             })
         }else{
             req.flash('feedback','You dont have access to do that')
@@ -60,13 +61,13 @@ quesRouter.post('/answer',(req,res)=>{
             que.save().then(val=>{
                 req.flash('feedback','Successfully answered')
                 req.flash('type','green')
-                res.redirect(`/questions/queson${req.body.qid}`)
+                res.redirect(`/questions/queson${que.Product._id}`)
             })
             
         }else{
             req.flash('feedback','You dont have permisson to do that')
             req.flash('type','red')
-            res.redirect(`/products/index`)
+            res.redirect(`/products/index`,{message:req.flash('feedback'),type:req.flash('type')})
         }
     })
 })

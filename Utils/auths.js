@@ -1,4 +1,4 @@
-const products=require('./models/products')
+const products=require('../models/products')
 
 const checkAuth=(reqi,res,next)=>{
     let req=reqi
