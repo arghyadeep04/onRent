@@ -31,6 +31,16 @@ demRouter.get('/alldemands',(req,res)=>{
     })
 })
 
+demRouter.post('/searchresult',(req,res)=>{
+    const {search,Catagory}=req.body;
+    let sarchexp=new RegExp(`${search}`,"i");let catagexp=new RegExp(`${Catagory}`,"i")
+
+    Demand.find({Desc:{$regex:sarchexp},Type:{$regex:catagexp}}).populate('User').then(demands=>{
+        demands.sort(compare)
+        res.render('alldemands',{demands,logdin:req.isAuthenticated(),message:req.flash('feedback'),type:req.flash('type'),title:'Search Results'})
+    })
+})
+
 demRouter.get('/ansform:id',checkAuth,(req,res)=>{
     products.find({Owner:req.user._id}).then(pds=>{
 

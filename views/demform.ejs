@@ -1,8 +1,9 @@
+<%- include('partials/broilerup') %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<h1 class="text-center p-3 m-3">Demand for A Product</h1>
+<h1 class="text-center p-3 m-3 dark:text-blue-600">Demand for A Product</h1>
 <form method="post" action="/demands/demandadd" novalidate class="needs-validation m-3 p-3">
     <div class="mb-3">
-      <label for="type" class="form-label">Type of Product you want</label>
+      <label for="type" class="form-label dark:text-green-700">Type of Product you want</label>
       <select class="form-control" id="type" aria-describedby="emailHelp" required name="demand[Type]">
         <% for( let cata of catagories ) { %>
         <option value="<%= cata %>"><%=cata %></option>
@@ -11,10 +12,11 @@
       <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
     </div><br>
     <div class="mb-3">
-      <label for="Desc" class="form-label">Description of Product you want</label>
+      <label for="Desc" class="form-label dark:text-green-700">Description of Product you want</label>
       <textarea class="form-control" id="Desc" name="demand[Desc]"></textarea>
     </div><br>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
   <script src="/formvalid.js"></script>
+  <%- include('partials/broilerdn') %>

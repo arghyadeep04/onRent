@@ -112,9 +112,9 @@ app.use((err,req,res,next)=>{
 })
 
 // app.listen(80,'192.168.63.198'||'localhost',()=>{
-//     console.log("http:/localhost:80")
+//     console.log("http://192.168.63.198:80")
 // })
 
 app.listen(80,()=>{
-    console.log("http:/localhost:80")
+    console.log("http://localhost:80")
 })

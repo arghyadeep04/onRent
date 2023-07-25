@@ -3,7 +3,7 @@
 <h1 class="text-4xl text-blue-700 text-center font-bold m-3 p-2 mb-6">Your favourite products</h1><hr class=" h-[2px] bg-blue-700"> 
 <% for( let prod of products ) { %>
 
-    <div class="flex justify-around rounded-xl shadow-xl w-[90vw] m-[-1vw] my-[2vh] border-[3px] border-blue-900 mx-[-5vw] sm:mx-[3vw] <%= prod.Available?"bg-white":"bg-gray-400" %> dark:<%= prod.Available?"bg-gray-600":"bg-gray-300" %>">
+    <div class="flex justify-around rounded-xl shadow-xl w-[90vw] m-[-1vw] my-[2vh] border-[3px] border-blue-900 mx-0 sm:mx-[3vw] <%= prod.Available?"bg-white":"bg-gray-400" %> dark:<%= prod.Available?"bg-gray-600":"bg-gray-300" %>">
         <div class="max-w-[30%] max-h-[50vh]">
         <img src="<%= prod.Thumbnail.path %>" alt="" class=" m-3 rounded-lg max-h-[5vh]: sm:max-h-[40vh]">
         <div class="font-bold text-sm lg:text-xl px-[4vw] py-[1vh] text-center max-h-[10vh]">Rent : Rs <%= prod.Price %> / <%= prod.Basis %></div></div>
