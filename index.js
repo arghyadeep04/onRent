@@ -115,6 +115,6 @@ app.use((err,req,res,next)=>{
 //     console.log("http://192.168.63.198:80")
 // })
 
-app.listen(80,()=>{
-    console.log("http://localhost:80")
+app.listen(process.env.PORT||80,()=>{
+    console.log(`http://localhost:${process.env.PORT||80}`)
 })
