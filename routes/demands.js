@@ -9,7 +9,7 @@ const compare=(a,b)=>{
 }
 
 demRouter.get('/demandform',checkAuth,(req,res)=>{
-    res.render('demform',{catagories:['Electronics','Toys','Furniture','Property','Accessories','Tools','Miscllaneous','Electrical']})
+    res.render('demform',{catagories:['Electronics','Toys','Furniture','Property','Accessories','Tools','Miscllaneous','Electrical'],logdin:req.isAuthenticated()})
 })
 
 demRouter.post('/demandadd',checkAuth,(req,res)=>{
@@ -27,7 +27,7 @@ demRouter.post('/demandadd',checkAuth,(req,res)=>{
 demRouter.get('/alldemands',(req,res)=>{
     Demand.find({}).populate('User').then(demands=>{
         demands.sort(compare)
-        res.render('alldemands',{demands,logdin:req.isAuthenticated(),message:req.flash('feedback'),type:req.flash('type'),title:'All demands of Users'})
+        res.render('alldemands',{demands,logdin:req.isAuthenticated(),message:req.flash('feedback'),type:req.flash('type'),title:'All demands of Users',})
     })
 })
 
@@ -44,7 +44,7 @@ demRouter.post('/searchresult',(req,res)=>{
 demRouter.get('/ansform:id',checkAuth,(req,res)=>{
     products.find({Owner:req.user._id}).then(pds=>{
 
-        res.render('ansform',{demandid:req.params.id,prods:pds})
+        res.render('ansform',{demandid:req.params.id,prods:pds,logdin:req.isAuthenticated()})
     })
 })
 
@@ -73,7 +73,7 @@ demRouter.get('/answers:id',(req,res)=>{
     Demand.findById(req.params.id).populate('Answers.product').populate('Answers.user').then(demand=>{
         let answers=demand.Answers
         answers.sort(compare)
-        res.render('answers',{answers,message:req.flash('feedback'),type:req.flash('type'),demid:req.params.id})
+        res.render('answers',{answers,message:req.flash('feedback'),type:req.flash('type'),demid:req.params.id,logdin:req.isAuthenticated()})
     })
 })
 

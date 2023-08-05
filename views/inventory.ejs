@@ -1,5 +1,9 @@
 <%- include('partials/broilerup') %>
-
+<%- include('partials/navbarup') %>
+<% if (message!='') { %>
+ 
+  <%- include('partials/alert') %>
+<% } %>
 <h1 class="text-3xl font-bold text-center text-blue-800 p-2 m-3">Your Inventory</h1>
 <div class="p-5 flex justify-around">
   <% if (products.length!=0) { %>
@@ -34,4 +38,7 @@
     </div>
     <a href="/products/addprodform" class="flex justify-around"><button class="rounded-3xl bg-blue-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-blue-800 m-5 text-white">Add your product</button></a><br>
 
+    <%- include('partials/navbardn') %>
+    <script src="/navlogic.js">
+</script>
 <%- include('partials/broilerdn') %>

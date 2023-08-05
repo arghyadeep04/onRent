@@ -14,7 +14,7 @@ const mbxGeocoding=require('@mapbox/mapbox-sdk/services/geocoding')
 const { distKm } = require('../Utils/geograph')
 const geocoder=mbxGeocoding({accessToken:mapToken})
 userRouter.get('/registerform',(req,res)=>{
-    res.render('regform',{message:req.flash('feedback'),type:req.flash('type')})
+    res.render('regform',{message:req.flash('feedback'),type:req.flash('type'),logdin:req.isAuthenticated()})
 })
 
 
@@ -57,9 +57,9 @@ userRouter.post('/register',upload.single('Photo'),(req,res,next)=>{valid(usersc
             
                     req.flash('feedback','Successfully added and logged in')
                     req.flash('type','success')
-                    let topath=req.session.requestedFor||'/users/registerform'
-                    req.session.requestedFor=null
-                    res.redirect(topath)
+                    // let topath=req.session.requestedFor||'/users/registerform'
+                    // req.session.requestedFor=null
+                    res.redirect('/products/index')
                 })
             }catch(e){
                 console.log("Reg Error",e)
@@ -82,14 +82,14 @@ userRouter.post('/register',upload.single('Photo'),(req,res,next)=>{valid(usersc
 
 
 userRouter.get('/loginform',(req,res)=>{
-    res.render('logform',{message:`${req.flash('feedback')}${req.flash('error')}`,type:'danger'})
+    res.render('logform',{message:`${req.flash('feedback')}${req.flash('error')}`,type:'danger',logdin:req.isAuthenticated()})
 })
 userRouter.post('/login',passport.authenticate('local',{failureFlash:"Username or Password is incorrect",failureRedirect:'/users/loginform'}),(req,res)=>{
     req.flash('feedback','Logged in')
     req.flash('type','green')
-    let topath=req.session.requestedFor||'/users/loginform'
-    req.session.requestedFor=null
-    res.redirect(topath)
+    // let topath=req.session.requestedFor||'/users/loginform'
+    // req.session.requestedFor=null
+    res.redirect('/products/index')
 })
 
 userRouter.get('/logout',(req,res)=>{
@@ -104,7 +104,7 @@ userRouter.get('/logout',(req,res)=>{
 
 userRouter.get('/view:id',(req,res)=>{
     User.findById(req.params.id).then(user=>{
-        res.render('profile',{user})
+        res.render('profile',{user,logdin:req.isAuthenticated()})
     })
 })
 

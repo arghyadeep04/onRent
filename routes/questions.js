@@ -6,7 +6,7 @@ const Ques = require('../models/questions')
 const quesRouter=exp.Router()
 
 quesRouter.get('/askon:prodid',checkAuth,(req,res)=>{
-    res.render('askform',{prodid:req.params.prodid})
+    res.render('askform',{prodid:req.params.prodid,logdin:req.isAuthenticated()})
 })
 
 quesRouter.post('/new',checkAuth,(req,res)=>{
@@ -21,7 +21,7 @@ quesRouter.post('/new',checkAuth,(req,res)=>{
 
 quesRouter.get('/answers:prodid',checkAuth,(req,res)=>{
     Ques.find({Asker:req.user._id,Product:req.params.prodid}).then(qaa=>{
-        res.render('questionanswer',{ques:qaa})
+        res.render('questionanswer',{ques:qaa,logdin:req.isAuthenticated()})
     })
 })
 
@@ -30,7 +30,7 @@ quesRouter.get('/queson:prodid',checkAuth,(req,res)=>{
         console.log(req.params.prodid,prod)
         if(isOwner(prod.Owner,req)){
             Ques.find({Product:req.params.prodid}).populate('Asker').then(ques=>{
-                res.render('myquestions',{ques,message:req.flash('feeedback'),type:req.flash('type')})
+                res.render('myquestions',{ques,message:req.flash('feeedback'),type:req.flash('type'),logdin:req.isAuthenticated()})
             })
         }else{
             req.flash('feedback','You dont have access to do that')
@@ -43,7 +43,7 @@ quesRouter.get('/queson:prodid',checkAuth,(req,res)=>{
 quesRouter.get('/answerq:qid',checkAuth,(req,res)=>{
     Ques.findById(req.params.qid).populate('Product').then(que=>{
         if (isOwner(que.Product.Owner,req)) {
-            res.render('qanswerform',{que})
+            res.render('qanswerform',{que,logdin:req.isAuthenticated()})
             
         }else{
             req.flash('feedback','You dont have access to do that')

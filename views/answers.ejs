@@ -3,6 +3,8 @@
  
     <%- include('partials/alert') %>
   <% } %>
+  <%- include('partials/navbarup') %>
+
   <h1 class="text-3xl text-blue-800 text-center m-5 font-bold">Answers to this demand</h1>
   <div class="flex justify-around rounded-2xl border-[3px] border-sky-700 p-3 m-3">
     <a href="/demands/ansform<%= demid %>"><button class="rounded-3xl bg-orange-600 text-[1rem] font-bold text-center py-2 px-[5vw] hover:bg-orange-800 m-2">Add your Answer</button></a>
@@ -10,7 +12,7 @@
 
   </div>
 <% for( let ans of answers ) { %>
-    <div class="flex flex-col gap-3 mt-14 m-4 mx-5 ">
+    <div class="flex flex-col gap-3 mt-14 m-4 mx-0">
         <div class="flex flex-col gap-4 bg-gray-200 p-4 ">
             <!-- Profile and Rating -->
             <div class=" justify justify-between">
@@ -30,7 +32,7 @@
             <% if (ans.product) { %>
              
             
-                <div class="flex justify-around rounded-xl shadow-xl w-[80vw] md:w-[90vw] m-[-1vw] my-[2vh] border-[3px] border-blue-900 md:m-[3vw]">
+                <div class="flex justify-around rounded-xl shadow-xl  -mx-3 md:w-[85vw] m-[-1vw] my-[2vh] border-[3px] border-blue-900 md:m-[3vw]">
                     <div class="max-w-[30%] max-h-[50vh]">
                     <img src="<%= ans.product.Thumbnail.path %>" alt="" class=" m-3 rounded-lg max-h-[40vh]">
                     <div class="font-bold text-xl px-[4vw] py-[1vh] text-center max-h-[10vh]">Rent : <%= ans.product.Price %> / <%= ans.product.Basis %></div></div>
@@ -56,6 +58,8 @@
     
 <% } %>
 
+<%- include('partials/navbardn') %>
 
-
+<script src="/navlogic.js">
+</script>
 <%- include('partials/broilerdn') %>

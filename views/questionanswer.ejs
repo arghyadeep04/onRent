@@ -1,4 +1,6 @@
 <%- include('partials/broilerup') %>
+<%- include('partials/navbarup') %>
+
 <h1 class="text-center text-blue-900 font-bold text-3xl m-5">Your questions on this Product</h1>
 <div class="m-3 p-3">
     <% for( let question of ques ) { %>
@@ -12,4 +14,7 @@
     <% } %>
    
 </div>
+<%- include('partials/navbardn') %>
+<script src="/navlogic.js">
+</script>
 <%- include('partials/broilerdn') %>

@@ -21,13 +21,13 @@ productRouter.get('/index',(req,res)=>{
 })
 
 productRouter.get('/addprodform',auths.checkAuth,(req,res)=>{
-    res.render('addprodform',{catagories:['Electronics','Toys','Furniture','Property','Accessories','Tools','Miscllaneous','Electrical']})
+    res.render('addprodform',{catagories:['Electronics','Toys','Furniture','Property','Accessories','Tools','Miscllaneous','Electrical'],logdin:req.isAuthenticated()})
 })
 
 productRouter.get('/view:id',(req,res)=>{
     products.findById(req.params.id).populate('Owner').populate('Reviews').then(val=>{
     
-        res.render('oneview',{product:val,message:req.flash('feedback'),type:req.flash('type'),user:req.user?req.user:{username:'anonymous',type:0}})
+        res.render('oneview',{product:val,message:req.flash('feedback'),type:req.flash('type'),user:req.user?req.user:{username:'anonymous',type:0},logdin:req.isAuthenticated()})
     })
 })
 
@@ -88,14 +88,14 @@ productRouter.post('/addprod',auths.checkAuth,upload.fields([{name: 'Thumbnail',
     console.log(val)
     req.flash('feedback','Your Product was successfully added')
     req.flash('type','success')
-    res.redirect(`/products/view${myprod._id}`)
+    res.redirect(`/products/inventory`)
    })
     // res.send([req.body,req.file,req.files])
 })
 
 productRouter.get('/inventory',auths.checkAuth,async(req,res)=>{
     products.find({Owner:req.user._id}).then(pds=>{
-        res.render('inventory',{products:pds})
+        res.render('inventory',{products:pds,logdin:req.isAuthenticated(),message:req.flash('feedback'),type:req.flash('type')})
     })
 })
 
@@ -103,7 +103,7 @@ productRouter.get('/edit:id',auths.checkAuth,(req,res)=>{
     products.findById(req.params.id).then(prod=>{
         if (auths.isOwner(prod.Owner,req)) {
             
-            res.render('editform',{prod,catagories:['Electronics','Toys','Furniture','Property','Accessories','Tools','Miscllaneous','Electrical']})
+            res.render('editform',{prod,catagories:['Electronics','Toys','Furniture','Property','Accessories','Tools','Miscllaneous','Electrical'],logdin:req.isAuthenticated()})
         }else{
             req.flash('feedback','You dont have permisson to do that')
             req.flash('type','red')
@@ -160,7 +160,7 @@ productRouter.patch('/edit',auths.checkAuth,upload.fields([{name: 'ChangeThumbna
     req.flash('feedback','Successfully Updated')
     req.flash('type','success')
     // res.redirect('/products/index')
-    res.redirect(`/products/view${req.body.prodid}`)
+    res.redirect(`/products/inventory`)
     }else{
         req.flash('feedback','You dont have permisson to do that')
         req.flash('type','red')

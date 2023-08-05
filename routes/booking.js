@@ -8,7 +8,7 @@ const { emailSender } = require('../Utils/mailer')
 bookRouter.get('/bookproduct:id',auths.checkAuth,(req,res,next)=>{
     products.findById(req.params.id).then(prod=>{
 
-        res.render('bookprodform',{prod})
+        res.render('bookprodform',{prod,logdin:req.isAuthenticated()})
     })
 })
 
@@ -34,13 +34,13 @@ bookRouter.post('/book',auths.checkAuth,(req,res,next)=>{valid(bookscheme,req.bo
 
 bookRouter.get('/mybookings',auths.checkAuth,(req,res)=>{
     bookings.find({Customer:req.user._id}).populate('Item').then(books=>{
-        res.render('bookings',{books})
+        res.render('bookings',{books,logdin:req.isAuthenticated()})
     })
 })
 
 bookRouter.get('/reqfor:pid',auths.checkAuth,(req,res)=>{
     bookings.find({Item:req.params.pid}).populate('Item').populate('Customer').then(books=>{
-        res.render('bookme',{books})
+        res.render('bookme',{books,logdin:req.isAuthenticated()})
     })
 })
 
@@ -49,7 +49,7 @@ bookRouter.get('/reply:id',(req,res)=>{
        const owid= await book.ownerid
        console.log(owid) 
         if(auths.isOwner(owid,req)){
-            res.render('bookreplyform',{book})
+            res.render('bookreplyform',{book,logdin:req.isAuthenticated()})
         }else{
             req.flash('feedback','You must be logged in as Owner of this product')
             req.flash('type','error')
