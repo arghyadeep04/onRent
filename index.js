@@ -116,5 +116,5 @@ app.use((err,req,res,next)=>{
 // })
 
 app.listen(process.env.PORT||80,()=>{
-    console.log(`http://localhost:${process.env.PORT}`)
+    console.log(`http://localhost:${process.env.PORT||80}`)
 })

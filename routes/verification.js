@@ -78,11 +78,11 @@ verRouter.get('/both/email:email/phone:number',async(req,res)=>{
        
             
     let info=await emailSender(req.params.email,'OTP',`Your OTP for registration is ${otpemail}`);
-    let infom=await sendMsg(req.params.number,otpphone);
+    // let infom=await sendMsg(req.params.number,otpphone);
     // console.log(`............\n.............\n...............${otpphone}..............\n.................\n.................`)
     console.log("OTP",req.session.otps)
-    console.log(info,infom);
-    res.send("Email and SMS Sent")
+    console.log(info);
+    res.send("Email Sent")
 })
 
 module.exports=verRouter

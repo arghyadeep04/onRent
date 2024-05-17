@@ -21,13 +21,13 @@ userRouter.get('/registerform',(req,res)=>{
 
 userRouter.post('/register',upload.single('Photo'),(req,res,next)=>{valid(userscheme,req.body,next)},async (req,res)=>{
     console.log(req.session)
-    let resultemail=0;let resultphone=0
+    let resultemail=0;let resultphone=1
     try {
          resultemail=await bcrypt.compare(req.body.EmailOtp, req.session.otps[req.body.Email])
         console.log(req.body.Phno,req.session.otps,req.body.PhoneOtp)
          resultphone=await bcrypt.compare(req.body.PhoneOtp, req.session.otps[req.body.Phno]) 
     } catch (error) {
-       console.log("Otp Error",err) 
+       console.log("Otp Error",error) 
     }
   
     console.log("results...",resultemail,resultphone)

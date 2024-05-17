@@ -60,7 +60,7 @@ const userscheme=joi.object({
     password:joi.string().required(),
     Phno:joi.number().integer().required().min(1000000000).max(9999999999),
     EmailOtp:joi.number(),
-    PhoneOtp:joi.number(),
+    // PhoneOtp:joi.number(),
     Place:joi.string()
     // Photo:joi.required()
 })
