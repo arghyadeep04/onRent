@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP,
-  port: process.env.PORT,
+  port: process.env.EMAIL_PORT,
   secure: false,
   auth: {
     // TODO: replace `user` and `pass` values from <https://forwardemail.net>
