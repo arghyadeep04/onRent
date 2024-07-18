@@ -56,7 +56,7 @@ userRouter.post('/register',upload.single('Photo'),(req,res,next)=>{valid(usersc
                 req.login(newuser,err=>{
             
                     req.flash('feedback','Successfully added and logged in')
-                    req.flash('type','success')
+                    req.flash('type','green')
                     // let topath=req.session.requestedFor||'/users/registerform'
                     // req.session.requestedFor=null
                     res.redirect('/products/index')
