@@ -67,7 +67,7 @@
 <% for( let prod of products ) { %>
 
  
-    <div class="flex justify-around rounded-xl shadow-xl w-[90vw] m-[-1vw] my-[2vh] border-[3px] border-blue-900 mx-0 sm:mx-[3vw] <%= prod.Available?"bg-white":"bg-gray-400" %> dark:<%= prod.Available?"bg-gray-600":"bg-gray-400" %>">
+    <div class="flex justify-around rounded-xl shadow-xl w-[90vw] m-[-1vw] my-[2vh] border-[3px] border-blue-900 mx-0 sm:mx-[3vw] <%= !(prod.Available)?"bg-white":"bg-gray-400" %> dark:<%= prod.Available?"bg-gray-600":"bg-gray-400" %>">
         <div class="max-w-[30%] max-h-[50vh]">
         <img src="<%= prod.Thumbnail.path %>" alt="" class=" m-3 rounded-lg max-h-[5vh]: sm:max-h-[40vh]">
         <div class="font-bold text-sm lg:text-xl px-3 py-[1vh] text-center max-h-[10vh]">Rent : Rs <%= prod.Price %> / <%= prod.Basis %></div></div>
