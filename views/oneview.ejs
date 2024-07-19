@@ -9,7 +9,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
 <% } %>
-<div class="m-1 p-1 md:m-3 md:p-3 rounded-3xl border-[3px] border-blue-800 bg-yellow-200">
+<div class="m-[-10vw] mb-1 mt-1 p-1 md:m-3 md:p-3 rounded-3xl border-[3px] border-blue-800 bg-yellow-200">
      <h1 class="p-3 text-center text-blue-700"><%= product.Name %></h1><hr> <br>
      <p class="text-red-800 p-3 text-3xl">Rent : Rs <%= product.Price %> / <%= product.Basis %></p>
      <div class="text-lg p-3">
@@ -26,9 +26,11 @@
             <img src="<%= img.path %>" alt="" class="max-w-[80vw] m-2 rounded-xl border-[2px] border-blue-700 max-h-[90vh]">
         <% } %>
      </div>
-     <div>
+     <div class="flex justify-around">
+      <div>
         <p class="text-2xl font-bold pt-5">Place to find : </p>
-        <div id='map' style='width: 80vw; height: 80vh;padding: 1vw;'></div>
+        <div id='map' style='width: 90vw; height: 80vh;padding: 1vw;'></div>
+      </div>
      </div>
      <div>
       <p class="text-2xl font-bold pt-5">Last Edited on : <%= product.Lasteditedon %></p>
@@ -94,7 +96,7 @@
     </div>
   </div>
 </div> -->
-<div class="flex flex-col gap-3 mt-14 m-4">
+<div class="flex flex-col gap-3 mt-10 m-[-9vw] md:m-4">
   <div class="flex flex-col gap-4 bg-gray-200 p-4 dark:bg-gray-800">
       <!-- Profile and Rating -->
       <div class="flex justify justify-between">
