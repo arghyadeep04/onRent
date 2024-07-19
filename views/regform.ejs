@@ -70,7 +70,7 @@
           </div> -->
         <div class="mb-3">
             <button class="btn btn-primary" id="otpb" type="button">Get OTP</button>
-            <div id="emailHelp" class="form-text">After clicking Get OTP please wait for 2 minute before clicking it again</div>
+            <div id="emailHelp" class="form-text">After clicking Get OTP please wait for 2 minute. Re-check your Email Address before clicking it again</div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -117,9 +117,9 @@
     //   })
 
       document.getElementById('otpb').addEventListener('click',async ()=>{
-      document.getElementById('otpb').style.display='none'
+      document.getElementById('otpb').disabled=true
       setTimeout(()=>{
-        document.getElementById('otpb').style.display=''
+        document.getElementById('otpb').disabled=false
       },120000)
       await fetch(`/verification/both/email${document.getElementById('email').value}/phone${document.getElementById('Phno').value}`)
     })
